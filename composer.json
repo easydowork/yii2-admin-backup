@@ -1,0 +1,32 @@
+{
+    "name": "easydowork/yii2-admin-backup",
+    "description": "a tools for yii2-admin role back up",
+    "keywords": ["yii", "admin", "auth", "rbac", "backup"],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "easydowork",
+            "email": "254364502@qq.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "mdmsoft/yii2-admin": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "easydowork\\rbacBackup\\": "./src"
+        }
+    },
+    "repositories": {
+        "0":{
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    }
+}
