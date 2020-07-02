@@ -86,16 +86,19 @@ class RbacController extends Controller
     {
         try {
             $db = Yii::$app->db;
+
+            $db->createCommand()->checkIntegrity(false)->execute();
             foreach ($this->tableList as $table){
                 $fileName = Yii::getAlias($this->cachePath).DIRECTORY_SEPARATOR.$table;
                 $data = unserialize(file_get_contents($fileName));
                 if(!empty($data)){
                     $db->transaction(function () use ($db,$table,$data){
-                        $db->createCommand()->truncateTable($table);
+                        $db->createCommand()->truncateTable($table)->execute();
                         $db->createCommand()->batchInsert($table,array_keys($data[0]),$data)->execute();
                     });
                 }
             }
+            $db->createCommand()->checkIntegrity()->execute();
             //invalidate rbac cache
             Yii::$app->cache->cachePath = Yii::getAlias($this->roleCachePath);
 
