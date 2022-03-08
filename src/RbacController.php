@@ -81,10 +81,15 @@ class RbacController extends Controller
 
     /**
      * actionUpdate
+     * @param string $roleCachePath
      */
-    public function actionUpdate()
+    public function actionUpdate(string $roleCachePath='')
     {
         try {
+            if(empty($roleCachePath)){
+                $roleCachePath = $this->roleCachePath;
+            }
+
             $db = Yii::$app->db;
 
             $db->createCommand()->checkIntegrity(false)->execute();
@@ -100,7 +105,7 @@ class RbacController extends Controller
             }
             $db->createCommand()->checkIntegrity()->execute();
             //invalidate rbac cache
-            Yii::$app->cache->cachePath = Yii::getAlias($this->roleCachePath);
+            Yii::$app->cache->cachePath = Yii::getAlias($roleCachePath);
 
             TagDependency::invalidate(Yii::$app->cache, Configs::CACHE_TAG);
 
